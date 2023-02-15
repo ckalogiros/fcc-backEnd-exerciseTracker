@@ -385,7 +385,7 @@ app.post('/api/users/:_id/logstest', async (req, res, next) => {
  */
 
 function IsNull(val) {
-    if (val === null || val === undefined || val === NAN)
+    if (val === null || val === undefined || val === NaN)
         return true;
     return false;
 }
@@ -600,7 +600,7 @@ function ValidateDate(date) {
         dateObj.dayStr = ''; // Not used. Must be Not null to pass the validation
         dateObj.monthStr = '' // Same
     }
-    else if (splited[0].length === 1) { // Check if the date is just of view: 'yyyy-mm-dd', without any spaces to be splitted 
+    else if (splited.length === 1) { // Check if the date is just of view: 'yyyy-mm-dd', without any spaces to be splitted 
         let sp = []
         if (date.indexOf('-') > -1) sp = date.split('-')
         else if (date.indexOf('/') > -1) sp = date.split('/')
@@ -639,9 +639,10 @@ function ConvertToDateFormat(date, format) {
 
     if (IsNull(date) || IsEmpty(date)) return null;
 
-    if ((IsNull(date.day) || IsEmpty(date.day)) && !IsNull(date.dayStr)) {
-        date.day = DateGetDayNumber(date.dayStr);
-    }
+    // TODO: create a day numbre out of the day of the week and year based on calendar(Date())
+    // if ((IsNull(date.day) || IsEmpty(date.day)) && !IsNull(date.dayStr)) {
+    //     date.day = DateGetDayNumber(date.dayStr);
+    // }
     // If there is no month in number format, check if there is a month in string format, convert to number format and save to .month key 
     if ((IsNull(date.month) || IsEmpty(date.month)) && !IsNull(date.monthStr)) {
         date.month = DateGetMonthNumber(date.monthStr);
@@ -676,3 +677,6 @@ function IsAnyObjectKeyNull(obj) {
     }
     return false
 }
+
+
+fcc-backEnd-exerciseTracker
